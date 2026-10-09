@@ -1,0 +1,19 @@
+   name: Crypto News Email
+   on:
+     schedule:
+       - cron: "30 2,6,12 * * *"   # 8:00 AM, 12:00 PM, 6:00 PM IST
+     workflow_dispatch:
+   jobs:
+     send:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-python@v5
+           with:
+             python-version: "3.12"
+         - run: pip install -r requirements.txt
+         - run: python crypto_news_all.py --once
+           env:
+             EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+             EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+             EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
