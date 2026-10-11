@@ -73,7 +73,7 @@ MIN_MATCHED = 3          # if fewer topic stories than this, top up with general
 FILL_TO = 5              # ...up to this many stories, so the email is never empty
 MAX_STORIES = 12         # stories per email
 MAX_AGE_HOURS = 24       # ignore stories older than this (None = no limit)
-SEND_TIMES = ["08:00", "12:00", "18:00"]   # only used when running on your own PC without --once
+SEND_TIMES = ["09:00", "12:00", "18:00"]   # only used when running on your own PC without --once
 SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.gmail.com")   # Outlook: smtp.office365.com
 SENT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sent_links.json")
 
@@ -91,8 +91,9 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; CryptoNewsBot/1.0)"}
 
 # Which cron line in news.yml belongs to which profile (GitHub tells us the slot
 # in the SCHEDULE_CRON variable, so a late run still sends the right topic).
+# These keys must match the cron lines in news.yml EXACTLY.
 SCHEDULE_MAP = {
-    "30 2 * * *": "morning",    # 8:00 AM IST
+    "30 3 * * *": "morning",    # 9:00 AM IST
     "30 6 * * *": "noon",       # 12:00 PM IST
     "30 12 * * *": "evening",   # 6:00 PM IST
 }
