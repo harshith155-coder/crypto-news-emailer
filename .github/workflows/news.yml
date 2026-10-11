@@ -1,19 +1,26 @@
-   name: Crypto News Email
-   on:
-     schedule:
-       - cron: "30 3,6,12 * * *"   # 8:00 AM, 12:00 PM, 6:00 PM IST
-     workflow_dispatch:
-   jobs:
-     send:
-       runs-on: ubuntu-24.04
-       steps:
-         - uses: actions/checkout@v4
-         - uses: actions/setup-python@v5
-           with:
-             python-version: "3.12"
-         - run: pip install -r requirements.txt
-         - run: python crypto_news_all.py --once
-           env:
-             EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
-             EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-             EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+
+News · YML
+name: Crypto News Email
+on:
+  schedule:
+    - cron: "30 3 * * *"    # 9:00 AM IST  -> morning
+    - cron: "30 6 * * *"    # 12:00 PM IST -> noon
+    - cron: "30 12 * * *"   # 6:00 PM IST  -> evening
+  workflow_dispatch:
+jobs:
+  send:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python crypto_news_all.py --once
+        env:
+          SCHEDULE_CRON: ${{ github.event.schedule }}
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
+ 
+Claude finished the response
