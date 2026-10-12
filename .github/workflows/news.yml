@@ -1,9 +1,5 @@
 name: Crypto News Email
 on:
-  schedule:
-    - cron: "30 3 * * *"    # 9:00 AM IST  -> morning
-    - cron: "30 6 * * *"    # 12:00 PM IST -> noon
-    - cron: "30 12 * * *"   # 6:00 PM IST  -> evening
   workflow_dispatch:
 jobs:
   send:
